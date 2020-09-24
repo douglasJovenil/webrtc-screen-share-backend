@@ -5,7 +5,7 @@ import cors = require('cors');
 import { SignalData } from 'simple-peer';
 
 interface OfferPayload {
-  socketId: string;
+  socketID: string;
   signal: SignalData;
 }
 
@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
     // Informa para quem acabou de entrar sobre os integrantes da sala para mostrar na UI
     socket.emit(
       'send_viewers_of_room',
-      getAllIds().filter((id) => id !== socket.id)
+      getAllIDs().filter((id) => id !== socket.id)
     );
 
     // Informa os integrantes da sala sobre quem acabou de entrar para mostrar na UI
@@ -87,7 +87,7 @@ io.on('connection', (socket) => {
     viewers.forEach((viewer) => {
       // Garante que o viewer que deve criar uma answer
       // eh o da iteracao atual do streamer
-      if (viewer.id === payload.socketId) {
+      if (viewer.id === payload.socketID) {
         // solicita que o viewer crie uma resposta para o peer
         viewer.emit('create_answer', payload.signal);
       }
@@ -97,7 +97,7 @@ io.on('connection', (socket) => {
   // Quando um viewer cria um peer e responde o streamer
   socket.on('send_answer', (signal: SignalData) => {
     // Passa a resposta do viewer para o streamer para finalizar o handshake
-    streamer.emit('accept_answer', { signal: signal, socketId: socket.id });
+    streamer.emit('accept_answer', { signal: signal, socketID: socket.id });
   });
 
   // Quando alguem sai da sala
@@ -128,7 +128,7 @@ function emitToAll(topic: string, value: any) {
   viewers.forEach((viewer) => viewer.emit(topic, value));
 }
 
-function getAllIds(): string[] {
+function getAllIDs(): string[] {
   const ret: string[] = [];
 
   if (streamer) {
