@@ -32,8 +32,10 @@ class Room {
   }
 
   resetStreamer() {
-    this.viewers.set(this.streamer.id, this.streamer);
-    this.streamer = null;
+    if (this.hasStreamer()) {
+      this.viewers.set(this.streamer.id, this.streamer);
+      this.streamer = null;
+    }
   }
 
   isStreamer(socket: socket.Socket) {
