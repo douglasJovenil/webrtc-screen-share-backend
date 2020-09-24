@@ -10,6 +10,7 @@ interface OfferPayload {
 }
 
 class Room {
+  // Logica onde se duplica a informacao para evitar iterar desnecessariamente sobre os arrays
   private sockets = new Map<string, socket.Socket>();
   private viewers = new Map<string, socket.Socket>();
   private streamer: socket.Socket = null;
@@ -27,9 +28,11 @@ class Room {
 
   setStreamer(socket: socket.Socket) {
     this.streamer = socket;
+    this.viewers.delete(this.streamer.id);
   }
 
   resetStreamer() {
+    this.viewers.set(this.streamer.id, this.streamer);
     this.streamer = null;
   }
 
