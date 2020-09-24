@@ -52,7 +52,7 @@ class Room {
 
   emitTo(socket: socket.Socket | string, topic: string, value?: any) {
     if (typeof socket === 'string') {
-      this.sockets.get(socket).emit(topic, value);
+      if (this.sockets.get(socket)) this.sockets.get(socket).emit(topic, value);
     } else {
       socket.emit(topic, value);
     }
