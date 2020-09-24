@@ -36,12 +36,12 @@ io.on('connection', (socket) => {
     if (streamer) {
       streamer.emit('add_new_peer', socket.id);
       // Informa que acabou de entrar no quem eh o streamer para atualizar a UI
-      socket.emit('new_streamer', streamer.id);
+      socket.emit('streamer_joined', streamer.id);
     }
 
     // Informa para quem acabou de entrar sobre os integrantes da sala para mostrar na UI
     socket.emit(
-      'send_viewers_at_room',
+      'send_viewers_of_room',
       getAllIds().filter((id) => id !== socket.id)
     );
 
@@ -67,7 +67,7 @@ io.on('connection', (socket) => {
     // Devolve os viewers para o streamer
     socket.emit('create_peers_to_start_stream', Array.from(viewers.keys()));
     // Informa os viewers quem comecou a stream
-    getAllSockets().forEach(sock => sock.emit('new_streamer', socket.id));
+    getAllSockets().forEach(sock => sock.emit('streamer_joined', socket.id));
   });
 
   // Quando o streamer parar de compartilhar a tela;
@@ -78,7 +78,7 @@ io.on('connection', (socket) => {
     // Adiciona os streamer que parou a transmissao como viewer
     viewers.set(socket.id, socket);
     // Informa os viewers que o streamer parou a stream
-    getAllSockets().forEach(sock => sock.emit('new_streamer', ''));
+    getAllSockets().forEach(sock => sock.emit('streamer_joined', ''));
   });
 
   // Quando o streamer notifica os viewers que vai iniciar a transmissao
