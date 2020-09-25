@@ -101,7 +101,7 @@ const io = socket(server);
 const room = new Room();
 const origin =
   process.env.NODE_ENV === 'production'
-    ? 'feracode-frontend.herokuapp.com'
+    ? 'https://feracode-frontend.herokuapp.com'
     : '*:*';
 
 app.use(
