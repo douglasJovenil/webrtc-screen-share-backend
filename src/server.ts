@@ -104,8 +104,8 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === 'production'
-        ? 'feracode-frontend.herokuapp.com'
-        : 'localhost',
+        ? 'https://feracode-frontend.herokuapp.com'
+        : '*',
   })
 );
 
