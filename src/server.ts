@@ -3,6 +3,7 @@ import http = require('http');
 import socket = require('socket.io');
 import cors = require('cors');
 import { SignalData } from 'simple-peer';
+import { Socket } from 'socket.io-client';
 
 interface OfferPayload {
   socketID: string;
@@ -13,7 +14,7 @@ class Room {
   // Logica onde se duplica a informacao para evitar iterar desnecessariamente sobre os arrays
   private sockets = new Map<string, socket.Socket>();
   private viewers = new Map<string, socket.Socket>();
-  private streamer: socket.Socket = null;
+  private streamer: socket.Socket | null = null;
   private maxSocketsAtRoom = 3;
 
   addSocket(socket: socket.Socket) {
@@ -32,14 +33,14 @@ class Room {
   }
 
   resetStreamer() {
-    if (this.hasStreamer()) {
+    if (this.streamer) {
       this.viewers.set(this.streamer.id, this.streamer);
       this.streamer = null;
     }
   }
 
   isStreamer(socket: socket.Socket) {
-    if (this.hasStreamer()) return socket.id === this.streamer.id;
+    if (this.streamer) return socket.id === this.streamer.id;
     return false;
   }
 
@@ -48,13 +49,14 @@ class Room {
   }
 
   getStreamerID() {
-    if (this.hasStreamer()) return this.streamer.id;
+    if (this.streamer) return this.streamer.id;
     return '';
   }
 
   emitTo(socket: socket.Socket | string, topic: string, value?: any) {
     if (typeof socket === 'string') {
-      if (this.sockets.get(socket)) this.sockets.get(socket).emit(topic, value);
+      const socketToEmit: socket.Socket | undefined = this.sockets.get(socket);
+      if (socketToEmit) socketToEmit.emit(topic, value);
     } else {
       socket.emit(topic, value);
     }
