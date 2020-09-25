@@ -118,17 +118,17 @@ io.on('connection', (socket) => {
     room.emitToStreamer('add_new_peer', socket.id);
 
     // Informa quem acabou de entrar quem eh o streamer
-    room.emitTo(socket, 'streamer_joined', room.getStreamerID());
+    room.emitTo(socket, 'send_streamer', room.getStreamerID());
 
     // Informa para quem acabou de entrar sobre os integrantes da sala
     room.emitTo(
       socket,
-      'send_viewers_of_room',
+      'send_who_is_in_the_room',
       room.getSocketIDsExcept(socket)
     );
 
     // Notifica os integrantes da sala sobre quem acabou de entrar
-    room.emitToAllExcept(socket, 'viewer_joined', socket.id);
+    room.emitToAllExcept(socket, 'send_who_joined', socket.id);
   });
 
   // Quando algum integrante decide compartilhar a tela
@@ -140,7 +140,7 @@ io.on('connection', (socket) => {
     room.emitToStreamer('create_viewers_peers', room.getViewersIDs());
 
     // Informa os integrantes quem eh o novo streamer
-    room.emitToAll('streamer_joined', socket.id);
+    room.emitToAll('send_streamer', socket.id);
   });
 
   // Quando o streamer parar de compartilhar a tela;
@@ -149,7 +149,7 @@ io.on('connection', (socket) => {
     room.resetStreamer();
 
     // Informa os viewers que o streamer parou a stream
-    room.emitToAllViewers('streamer_joined', '');
+    room.emitToAllViewers('send_streamer', '');
   });
 
   // Quando o streamer vai iniciar a transmissao
@@ -174,7 +174,7 @@ io.on('connection', (socket) => {
     if (room.isStreamer(socket)) room.resetStreamer();
 
     // Informa todos que o usuário saiu
-    room.emitToAll('viewer_quit', socket.id);
+    room.emitToAll('send_who_quit', socket.id);
 
     // Remove o socket do viewer que saiu da sala
     room.removeSocket(socket);
