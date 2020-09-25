@@ -99,8 +99,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socket(server);
 const room = new Room();
-
-app.use();
+app.use(cors());
 
 io.on('connection', (socket) => {
   socket.on('join_room', () => {
