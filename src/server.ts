@@ -100,7 +100,14 @@ const server = http.createServer(app);
 const io = socket(server);
 const room = new Room();
 
-app.use(cors());
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? 'feracode-frontend.herokuapp.com'
+        : 'localhost',
+  })
+);
 
 io.on('connection', (socket) => {
   socket.on('join_room', () => {
