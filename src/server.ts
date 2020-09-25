@@ -83,7 +83,7 @@ class Room {
   }
 
   getSocketIDsExcept(socketToFilter: socket.Socket) {
-    var filteredSockets = new Map(this.sockets);
+    const filteredSockets = new Map(this.sockets);
     filteredSockets.delete(socketToFilter.id);
     return Array.from(filteredSockets.keys());
   }
