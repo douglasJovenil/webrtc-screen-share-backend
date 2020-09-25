@@ -101,8 +101,8 @@ const io = socket(server);
 const room = new Room();
 const origin =
   process.env.NODE_ENV === 'production'
-    ? 'https://feracode-frontend.herokuapp.com'
-    : '*:*';
+    ? 'http://feracode-frontend.herokuapp.com'
+    : 'http://localhost:3000';
 
 app.use(
   cors({
