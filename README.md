@@ -1,11 +1,11 @@
 # Feracode Back-end
 
-Serves the application [Feracode front-end](https://github.com/douglasJovenil/feracode_frontend). This server is responsible for manage the handshake of WebRTC peers using WebSockets.
+Serves the application [WebRTC Screen Share Front-End](https://github.com/douglasJovenil/webrtc-screen-share-frontend). This server is responsible for manage the handshake of WebRTC peers using WebSockets.
 
 ## ☁️ Links
 
-- [Front-end preview](https://feracode-frontend.herokuapp.com)
-- [Front-end code](https://github.com/douglasJovenil/feracode_frontend)
+- [Front-end preview](https://webrtc-screen-share-frontend.herokuapp.com/)
+- [Front-end code](https://github.com/douglasJovenil/webrtc-screen-share-frontend)
 
 ## 🚀 Technologies
 
@@ -20,8 +20,8 @@ This project was developed with the following technologies:
 ## 🏃 Usage
 
 ```bash
-git clone https://github.com/douglasJovenil/feracode_backend
-cd feracode_backend
+git clone https://github.com/douglasJovenil/webrtc-screen-share-backend
+cd webrtc-screen-share-backend
 yarn install
 yarn run dev
 ```
