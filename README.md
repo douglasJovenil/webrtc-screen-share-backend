@@ -1,4 +1,4 @@
-# Feracode Back-end
+# WebRTC Screen Share Back-End
 
 Serves the application [WebRTC Screen Share Front-End](https://github.com/douglasJovenil/webrtc-screen-share-frontend). This server is responsible for manage the handshake of WebRTC peers using WebSockets.
 
