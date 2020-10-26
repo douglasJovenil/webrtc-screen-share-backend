@@ -4,7 +4,6 @@ Serves the application [WebRTC Screen Share Front-End](https://github.com/dougla
 
 ## ☁️ Links
 
-- [Front-End preview](https://webrtc-screen-share-frontend.herokuapp.com/)
 - [Front-End code](https://github.com/douglasJovenil/webrtc-screen-share-frontend)
 
 ## 🚀 Technologies
